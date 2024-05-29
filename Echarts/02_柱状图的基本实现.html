@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<!-- 引入echarts.js文件 -->
+		<script src="lib/echarts.min.js"></script>
+	</head>
+
+	<body>
+		<div style="width: 600px; height: 400px"></div>
+	</body>
+
+	<script>
+		let mcharts = echarts.init(document.querySelector("div"));
+
+		let option = {
+			// 标题
+			title: {
+				text: "成绩",
+				link: "https://www.baidu.com/",
+				textStyle: {
+					color: "red",
+				},
+				borderWidth: 2,
+				borderColor: "yellow",
+				borderRadius: 2,
+				top: 20,
+				left: 60,
+			},
+			// 提示框组件，用于配置鼠标滑过或点击图表时的显示框
+			tooltip: {
+				// trigger: 'item',
+				trigger: "axis",
+				// triggerOn: "click",
+				triggerOn: 'mousemove',
+				// formatter: '{b} 的成绩是 {c}' // 字符串模版
+				formatter: function (params) {
+					let result = params[0].name + "<br>"; // 获取横轴对应的数据作为提示信息的标题
+					params.forEach((item) => {
+						if (item.seriesType === "line") {
+							result +=
+								item.marker +
+								" " +
+								item.seriesName +
+								": " +
+								item.value +
+								"<br>"; // 对折线图数据进行格式化
+						} else if (item.seriesType === "bar") {
+							result +=
+								item.marker +
+								" " +
+								item.seriesName +
+								": " +
+								item.value +
+								" <br>"; // 对柱状图数据进行格式化
+						}
+					});
+					return result;
+				},
+			},
+			// echarts提供的工具栏
+			toolbox: {
+				feature: {
+					saveAsImage: {}, // 导出图片
+					dataView: {}, // 数据视图
+					restore: {}, // 重置数据视图
+					dataZoom: {
+						xAxisIndex: false
+					}, // 区域缩放
+					// 动态图标类型的切换
+					magicType: {
+						type: ["bar", "line"],
+					},
+				},
+			},
+			// 图例，用于筛选系列，需要和series(name属性)配合使用
+			legend: {
+				data: ["语文", "数学"],
+			},
+			// 横向柱状图
+			xAxis: {
+				type: "value",
+			},
+			yAxis: {
+				type: "category",
+				data: ["小明", "小红", "小王"],
+			},
+			series: [
+				{
+					name: "语文",
+					type: "bar",
+					data: [80, 92, 87],
+					markPoint: {
+						data: [
+							{
+								type: "max",
+								name: "最大值",
+							},
+							{
+								type: "min",
+								name: "最小值",
+							},
+						],
+					},
+					markLine: {
+						data: [
+							{
+								type: "average",
+								name: "平均值",
+							},
+						],
+					},
+					label: {
+						show: true,
+						rotate: 30,
+						position: "inside",
+					},
+					barWidth: "25%",
+				},
+				{
+					name: "数学",
+					type: "bar",
+					data: [91, 82, 93],
+					barWidth: "25%",
+				},
+			],
+		};
+
+		mcharts.setOption(option);
+	</script>
+</html>

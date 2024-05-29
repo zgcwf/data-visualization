@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入echarts.js文件 -->
+    <script src="lib/echarts.min.js"></script>
+
+    <script src="lib/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div id="div1" style="width: 600px;height: 400px;">
+
+    </div>
+
+    <div id="div2" style="width: 600px;height: 400px;">
+
+    </div>
+</body>
+
+<script>
+    /** 
+     * echarts: echarts全局对象
+     * mcharts1：echarts实例对象(echartsInstance)
+    */
+
+    //  1. echarts.init: 初始化echarts实例对象，并可以设置主题
+    //  2. echarts.registerTheme：注册主题
+    //  3. echarts.registerMap：注册地图
+    //  4. echarts.connect：关联多个图表
+
+    /** connect：关联多个图表
+     * 1. 保存图片自动拼接
+     * 2. 刷新按钮
+     * 3. 重置按钮
+     * 4. 提示框联动、图例选择、数据范围修改....
+    */
+
+    let mcharts1 = echarts.init(document.querySelector('#div1'))
+
+    let option1 = {
+        // 下载图片后，会出现两个图标拼接起来了
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: ['小明', '小红', '小王']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: '语文',
+                type: 'bar',
+                data: [80, 92, 87],
+
+            }
+        ]
+    }
+
+    mcharts1.setOption(option1)
+
+    let mcharts2 = echarts.init(document.querySelector('#div2'))
+
+    let option2;
+    $.get('json/map/china.json', ret => {
+        echarts.registerMap('chinaMap', ret)
+
+        option2 = {
+            geo: {
+                type: 'map',
+                map: 'chinaMap',
+                roam: true,
+                zoom: 1.1,
+            }
+        }
+
+        mcharts2.setOption(option2)
+
+        echarts.connect([mcharts1, mcharts2]) // 把柱状图和地图关联起来
+    })
+</script>
+
+</html>

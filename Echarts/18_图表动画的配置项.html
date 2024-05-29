@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入echarts.js文件 -->
+    <script src="lib/echarts.min.js"></script>
+
+</head>
+
+<body>
+    <div style="width: 600px;height: 400px;">
+
+    </div>
+</body>
+
+<script>
+    let mcharts = echarts.init(document.querySelector('div'))
+
+    axisData = [80, 92, 87]
+    xAxisData = ['小明', '小红', '小王']
+
+    let option = {
+        animation: true, // 控制图表动画是否开启 默认值：true
+        // animationDuration: 3000, // 动画的时长
+        animationDuration: (arg) => {
+            console.log(arg);
+            return 400 * (arg + 1)
+        },
+        animationEasing: 'linear', // 缓动动画
+        animationThreshold: 10, // 动画阈值 单种形式的元素数量大于10个，那么将失去动画效果
+        xAxis: {
+            type: 'category',
+            data: xAxisData
+        },
+        yAxis: {
+            type: 'value',
+            max: 100,
+        },
+        series: [
+            {
+                name: '语文',
+                type: 'bar',
+                data: axisData,
+            }
+        ]
+    }
+
+    mcharts.setOption(option)
+</script>
+
+</html>

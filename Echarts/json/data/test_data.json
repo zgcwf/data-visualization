@@ -1,0 +1,34 @@
+{
+    "data": [
+        {
+            "gender": "female",
+            "height": 161.2,
+            "weight": 56
+        },
+        {
+            "gender": "female",
+            "height": 167.5,
+            "weight": 59
+        },
+        {
+            "gender": "female",
+            "height": 170.8,
+            "weight": 61
+        },
+        {
+            "gender": "female",
+            "height": 176.2,
+            "weight": 64
+        },
+        {
+            "gender": "female",
+            "height": 179.5,
+            "weight": 66
+        },
+        {
+            "gender": "female",
+            "height": 185.8,
+            "weight": 69
+        }
+    ]
+}

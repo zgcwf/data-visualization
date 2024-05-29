@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- 引入echarts.js文件 -->
+	<script src="lib/echarts.min.js"></script>
+
+</head>
+
+<body>
+	<div style="width: 600px;height: 400px;">
+
+	</div>
+</body>
+
+<script>
+	// 折线图用来描述数据随时间的变化趋势
+	let mcharts = echarts.init(document.querySelector('div'))
+
+	let xDataArr = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+	let yDataArr1 = [3000, 2800, 900, 1000, 800, 700, 1400, 1300, 900, 1000, 800, 600]
+	// let yDataArr1 = [3005, 3003, 3001, 3002, 3009, 3007, 3003, 3001, 3005, 3004, 3001, 3009] // 缩放：脱离0值比例
+	let yDataArr2 = [2000, 3800, 1900, 500, 900, 1700, 2400, 300, 1900, 1500, 1800, 200]
+
+	let option = {
+		xAxis: {
+			type: 'category',
+			data: xDataArr,
+			// 紧挨边缘
+			boundaryGap: false,
+		},
+		yAxis: {
+			type: 'value',
+			// 缩放：脱离0值比例
+			scale: true,
+		},
+		// 图例，用于筛选系列，需要和series(name属性)配合使用
+		legend: {
+			data: ["康师傅", "统一"],
+		},
+		tooltip: {
+			trigger: "axis",
+			triggerOn: 'mousemove',
+		},
+		series: [
+			{
+				name: '康师傅',
+				data: yDataArr1,
+				type: 'line',
+				// 最大值、最小值
+				markPoint: {
+					data: [
+						{
+							type: "max",
+							name: "最大值",
+						},
+						{
+							type: "min",
+							name: "最小值",
+						},
+					],
+				},
+				// 标注区间
+				markArea: {
+					data: [
+						[
+							{
+								xAxis: '1月'
+							},
+							{
+								xAxis: '2月'
+							}
+						],
+						[
+							{
+								xAxis: '7月'
+							},
+							{
+								xAxis: '8月'
+							}
+						]
+					]
+				},
+				smooth: true, // 线条平滑
+				// 线条样式
+				lineStyle: {
+					color: 'black',
+					type: 'dashed', // dotted solid dashed
+				},
+				// 填充
+				areaStyle: {
+					color: 'pink'
+				},
+				stack: 'all', // 堆叠图
+			},
+			{
+				name: '统一',
+				data: yDataArr2,
+				// 平均值
+				markLine: {
+					data: [
+						{
+							type: "average",
+							name: "平均值",
+						},
+					],
+				},
+				type: 'line',
+				smooth: true,
+				stack: 'all', // 堆叠图
+				// 填充
+				areaStyle: {},
+			}
+		]
+	}
+
+	mcharts.setOption(option)
+</script>
+
+</html>

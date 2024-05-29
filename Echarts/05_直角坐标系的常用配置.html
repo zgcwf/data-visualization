@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src="lib/echarts.min.js"></script>
+</head>
+
+<body>
+	<div style="width: 600px;height:400px"></div>
+	<script>
+		var mCharts = echarts.init(document.querySelector("div"))
+		var xDataArr = ['张三', '李四', '王五', '闰土', '小明', '茅台', '二妞', '大强']
+		var yDataArr = [88, 92, 63, 77, 94, 80, 72, 86]
+		var option = {
+			grid: { // 坐标轴容器
+				show: true, // grid边框是否可见
+				// borderWidth: 10, // grid边框的宽度
+				// borderColor: 'red', // grid边框的颜色
+				// left: 120, // grid的位置
+				// top: 120,
+				// width: 300, // grid的大小
+				// height: 150
+			},
+			xAxis: {
+				type: 'category',
+				data: xDataArr,
+				position: 'top' // 控制坐标轴的位置: x轴: top、bottom
+			},
+			yAxis: {
+				type: 'value',
+				position: 'right' // 控制坐标轴的位置 y轴: left、right
+			},
+
+			dataZoom: [ // 控制区域缩放效果的实现
+				{
+					type: 'slider', // 缩放的类型  slide代表滑块  inside代表依靠鼠标滚轮
+					// type: 'inside'
+					xAxisIndex: 0
+				},
+				{
+					type: 'slider',
+					yAxisIndex: 0,
+					start: 0, // 渲染完成后, 数据筛选的初始值, 百分比(相对于最高数据)
+					end: 90 // 渲染完成后, 数据筛选的结束值, 百分比(相对于最高数据)
+				}
+			],
+			series: [
+				{
+					name: '语文',
+					type: 'bar',
+					data: yDataArr,
+					label: {
+						show: true,
+						rotate: 60,
+						// position: 'top'
+					},
+					barWidth: '30%',
+				}
+			]
+		}
+		mCharts.setOption(option)
+	</script>
+</body>
+
+</html>

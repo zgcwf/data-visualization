@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- 引入echarts.js文件 -->
+	<script src="lib/echarts.min.js"></script>
+
+</head>
+
+<body>
+	<div style="width: 600px;height: 400px;">
+
+	</div>
+</body>
+
+<script>
+	// 饼状图用来描述不同分类数据的占比情况
+	let mcharts = echarts.init(document.querySelector('div'))
+ // pieData就是需要设置给饼图的数据, 数组,数组中包含一个又一个的对象, 每一个对象中, 需要有name和value
+	let pieData = [
+		{
+			name: '淘宝',
+			value: 11231
+		},
+		{
+			name: '京东',
+			value: 22673
+		},
+		{
+			name: '唯品会',
+			value: 6123
+		},
+		{
+			name: '1号店',
+			value: 8989
+		},
+		{
+			name: '聚美优品',
+			value: 6700
+		}
+	]
+
+	let option = {
+		// 不需要设置xAxis，yAxis
+		series: [
+			{
+				type: 'pie',
+				data: pieData,
+				label: {// 饼图文字的显示
+					color: 'inherit', // 文字颜色
+					show: true, // 显示文字
+					// 决定文字显示的内容
+					formatter: function (data) {
+						return data.name + '\n' + data.value + '元\n' + data.percent + '%'
+					}
+				},
+				// radius: '20%', // 饼图大小（百分比参照的是宽度和高度中较小的那一部分的一半来进行百分比设置）
+				// radius: ['50%', '75%'], // 第0个元素代表的是内圆的半径，第1个元素则是外圆的半径
+				roseType: 'radius', // 南丁格尔图：饼图的每一个区域，半径是不同的，占比越大，半径越长
+				selectedMode: 'single', // 点击选中的效果能够偏离圆点一小段距离
+				// selectedMode: 'multiple', // 可以选中多个
+				selectedOffset: 30, // 偏离的距离
+			}
+		]
+	}
+
+	mcharts.setOption(option)
+</script>
+
+</html>

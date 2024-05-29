@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入echarts.js文件 -->
+    <script src="lib/echarts.min.js"></script>
+    <script src="theme/vintage.js"></script>
+
+</head>
+
+<body>
+    <div style="width: 600px;height: 400px;">
+
+    </div>
+</body>
+
+<script>
+    // init方法有两个参数, 第一个参数代表是一个dom节点, 第二个参数, 代表你需要使用哪一套主题
+    // 默认内置了两套主题 , light  dark
+    // var mCharts = echarts.init(document.querySelector("div"), 'dark')
+
+    /**
+     * 自定义主题：
+     * 1.在线编辑主题 https://www.echartsjs.com/theme-builder/
+     * 2.下载主题的js文件
+     * 3.在html中导入js文件
+     * 4.在init方法中指明主题的名称
+    */
+    let mcharts = echarts.init(document.querySelector('div'), 'vintage')
+
+    let option = {
+        xAxis: {
+            type: 'category',
+            data: ['小明', '小红', '小王']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: '语文',
+                type: 'bar',
+                data: [80, 92, 87],
+            }
+        ]
+    }
+
+    mcharts.setOption(option)
+</script>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- 引入echarts.js文件 -->
+	<script src="lib/echarts.min.js"></script>
+
+</head>
+
+<body>
+	<div style="width: 100%;height: 400px;">
+
+	</div>
+</body>
+
+<script>
+	let mcharts = echarts.init(document.querySelector('div'))
+
+	let option = {
+		xAxis: {
+			type: 'category',
+			data: ['小明', '小红', '小王']
+		},
+		yAxis: {
+			type: 'value'
+		},
+		series: [
+			{
+				name: '语文',
+				type: 'bar',
+				data: [80, 92, 87],
+
+			}
+		]
+	}
+
+	mcharts.setOption(option)
+
+	// 监听window窗口大小变化的事件
+	// 1
+	// window.onresize = function () {
+	// 	mcharts.resize()
+	// }
+
+	// 2
+	window.onresize = mcharts.resize
+</script>
+
+</html>

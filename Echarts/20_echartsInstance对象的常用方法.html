@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- 引入echarts.js文件 -->
+	<script src="lib/echarts.min.js"></script>
+
+	<script src="lib/jquery.min.js"></script>
+
+</head>
+
+<body>
+	<div style="width: 600px;height: 400px;">
+
+	</div>
+	<button id="btn1">触发行为</button>
+	<button id="btn2">clear</button>
+	<button id="btn3">restore</button>
+	<button id="btn4">dispose</button>
+</body>
+
+<script>
+	/**
+	 * 1. setOption: 设置图表的配置项
+	 * 2. resize: 重新计算和绘制图表
+	 * 3. on/off: 监听和移除事件（鼠标事件（'click'、'dblclick'、'mousedown'、'mousemove'、'mouseup'）、echarts事件（'legendselectchanged'、'datazoom'、'pieselectchanged'、'mapselectchanged'））
+	 * 4. dispatchAction: 触发行为
+	 * 5. clear: 清空当前实例，会移除实例中所有的组件和图表，可以通过setOption再次设置
+	 * 3. restore: 恢复图表
+	 * 4. dispose: 销毁实例，销毁后实例无法在被使用
+	*/
+	let mcharts = echarts.init(document.querySelector('div'))
+
+	let pieData = [
+		{
+			name: '淘宝',
+			value: 11231
+		},
+		{
+			name: '京东',
+			value: 22673
+		},
+		{
+			name: '唯品会',
+			value: 6123
+		},
+		{
+			name: '1号店',
+			value: 8989
+		},
+		{
+			name: '聚美优品',
+			value: 6700
+		}
+	]
+
+	let option = {
+		series: [
+			{
+				type: 'pie',
+				data: pieData,
+				label: {
+					color: 'inherit',
+					show: true,
+				},
+			}
+		],
+		tooltip: {
+			show: true
+		},
+		legend: {
+			show: true
+		},
+	}
+
+	mcharts.setOption(option)
+
+	// 绑定点击事件
+	mcharts.on('click', arg => {
+		console.log('click', arg);
+	})
+
+	// 解绑点击事件
+	// mcharts.off('click')
+
+	// 对图例进行监听
+	mcharts.on('legendselectchanged', arg => {
+		console.log('legendselectchanged', arg);
+	})
+
+	$('#btn1').click(() => {
+		// 模拟用户的行为
+		mcharts.dispatchAction({
+			type: 'highlight',
+			seriesIndex: 0, // 系列的索引
+			dataIndex: 1 // 数据的索引
+		})
+
+		mcharts.dispatchAction({
+			type: 'showTip',
+			seriesIndex: 0, // 系列的索引
+			dataIndex: 1 // 数据的索引
+		})
+	})
+
+	$('#btn2').click(() => {
+		// 清空图表的实例
+		mcharts.clear()
+	})
+
+	$('#btn3').click(() => {
+		// clear后可以重新设置option，dispose后不行
+		mcharts.setOption(option)
+	})
+
+	$('#btn4').click(() => {
+		// 销毁图表的实例
+		mcharts.dispose()
+	})
+</script>
+
+</html>

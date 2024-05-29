@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- 引入echarts.js文件 -->
+	<script src="lib/echarts.min.js"></script>
+
+</head>
+
+<body>
+	<div style="width: 600px;height: 400px;">
+
+	</div>
+</body>
+
+<script>
+	let mcharts = echarts.init(document.querySelector('div'))
+
+	let option = {
+		xAxis: {
+			type: 'category',
+			data: ['小明', '小红', '小王']
+		},
+		yAxis: {
+			type: 'value'
+		},
+		series: [
+			{
+				name: '语文',
+				type: 'bar',
+				data: [80, 92, 87],
+				itemStyle: {
+					// 线性渐变
+					// color: {
+					//     type: 'linear',
+					// 		// 线性渐变的方向 x轴从左指向右，y轴从上指向下
+					//     x: 0,
+					//     y: 0,
+					//     x2: 0,
+					//     y2: 1,
+					//     colorStops: [
+					//         // 0% 处的颜色
+					//         {
+					//             offset: 0,
+					//             color: 'red'
+					//         },
+					//         // 100% 处的颜色
+					//         {
+					//             offset: 1,
+					//             color: 'blue'
+					//         },
+					//     ]
+					// }
+
+					// 径向渐变(适用于饼图)
+					color: {
+						type: 'radial',
+						// 圆心坐标
+						x: 0.5,
+						y: 0.5,
+						// 半径范围
+						r: 0.3,
+						colorStops: [
+							// 0% 处的颜色
+							{
+								offset: 0,
+								color: 'red'
+							},
+							// 100% 处的颜色
+							{
+								offset: 1,
+								color: 'blue'
+							},
+						]
+					}
+
+				}
+			}
+		]
+	}
+
+	mcharts.setOption(option)
+</script>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<!-- 引入echarts.js文件 -->
+	<script src="lib/echarts.min.js"></script>
+</head>
+
+<body>
+	<div style="width: 600px; height: 400px"></div>
+
+	<script>
+		// 柱状图用来描述分类数据，呈现的是每一个分类 有多少
+		let mcharts = echarts.init(document.querySelector("div"));
+
+		let option = {
+			// 标题
+			title: {
+				text: "成绩",
+				link: "https://www.baidu.com/", // 点击标题跳转的链接
+				// 标题样式
+				textStyle: {
+					color: "red",
+				},
+			},
+			xAxis: {
+				type: "category", // 类目轴（类别）,通过data设置类目的数据
+				data: ["小明", "小红", "小王"],
+			},
+			yAxis: {
+				type: "value", // 数值轴（一但设置y轴的type值为value后，就不需要设置y轴的data属性，相对的会从series下找到对应的数值）
+			},
+			// 系列列表。每个系列通过type决定自己的图表类型
+			series: [
+				{
+					name: "语文",
+					type: "bar", // bar——柱状图  line——折线图  pie——饼状图
+					data: [80, 92, 87],
+					// 最大值、最小值
+					markPoint: {
+						data: [
+							{
+								type: "max",
+								name: "最大值",
+							},
+							{
+								type: "min",
+								name: "最小值",
+							},
+						],
+					},
+					// 平均值
+					markLine: {
+						data: [
+							{
+								type: "average",
+								name: "平均值",
+							},
+						],
+					},
+					// 数值显示
+					label: {
+						show: true,
+						rotate: 30, // 旋转角度
+						position: "inside", // 显示位置
+					},
+					barWidth: "50%",
+				},
+			],
+		};
+
+		mcharts.setOption(option);
+	</script>
+</body>
+
+
+</html>

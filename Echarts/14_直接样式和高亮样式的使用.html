@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- 引入echarts.js文件 -->
+	<script src="lib/echarts.min.js"></script>
+
+</head>
+
+<body>
+	<div style="width: 600px;height: 400px;">
+
+	</div>
+</body>
+
+<script>
+	// 饼状图用来描述不同分类数据的占比情况
+	let mcharts = echarts.init(document.querySelector('div'))
+
+	let pieData = [
+		{
+			name: '淘宝',
+			value: 11231,
+			/*
+					注：直接样式和高亮样式优先级高，会覆盖主题中、调色盘的效果
+			*/
+			// 控制淘宝这一区域的样式
+			itemStyle: {
+				color: 'yellow'
+			},
+			// 控制淘宝这一区域的文字样式
+			label: {
+				color: 'green',
+			},
+			// 控制淘宝这一区域的高亮样式
+			emphasis: {
+				itemStyle: {
+					color: 'pink'
+				},
+				label: {
+					color: 'black',
+				},
+			}
+		},
+		{
+			name: '京东',
+			value: 22673
+		},
+		{
+			name: '唯品会',
+			value: 6123
+		},
+		{
+			name: '1号店',
+			value: 8989
+		},
+		{
+			name: '聚美优品',
+			value: 6700
+		}
+	]
+
+	let option = {
+		title: {
+			text: '饼状图',
+			// 控制标题的文字样式
+			textStyle: {
+				color: 'blue'
+			},
+		},
+		series: [
+			{
+				type: 'pie',
+				data: pieData,
+			}
+		]
+	}
+
+	mcharts.setOption(option)
+</script>
+
+</html>

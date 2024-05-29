@@ -1,0 +1,38 @@
+<html>
+
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/echarts@4.7.0/dist/echarts.min.js"></script>
+	<script src="theme/vintage.js"></script>
+
+	<style>
+		#chart {
+			width: 800px;
+			height: 400px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="chart"></div>
+	<script>
+		const chartDom = document.getElementById('chart')
+		// 1. 自定义主题，第二个参数可以指定的主题
+		// 2. svg渲染, 第三个参数可以将渲染模式由canvas改为svg
+		const chart = echarts.init(chartDom, 'vintage', { renderer: 'svg' })
+		chart.setOption({
+			title: {
+				text: '快速入门ECharts开发'
+			},
+			xAxis: {
+				data: ['食品', '数码', '服饰', '箱包']
+			},
+			yAxis: {},
+			series: {
+				type: 'bar', // type: 图表的类型，bar: 柱状图
+				data: [100, 120, 90, 150]
+			}
+		})
+	</script>
+</body>
+
+</html>

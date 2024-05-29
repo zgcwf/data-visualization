@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- 引入echarts.js文件 -->
+	<script src="lib/echarts.min.js"></script>
+
+</head>
+
+<body>
+	<div style="width: 600px;height: 400px;"></div>
+</body>
+
+<script>
+	// 散点图用来描述不同维度数据之间的相关性
+	let mcharts = echarts.init(document.querySelector('div'))
+
+
+	let data = [
+		{ 'gender': 'female', 'height': 151.5, 'weight': 55 }, { 'gender': 'female', 'height': 167.5, 'weight': 59 },
+		{ 'gender': 'female', 'height': 163.8, 'weight': 77 }, { 'gender': 'female', 'height': 155, 'weight': 70 },
+		{ 'gender': 'female', 'height': 179.5, 'weight': 72 }, { 'gender': 'female', 'height': 185.8, 'weight': 80 },
+	]
+
+	// let axisData = []
+
+	// for (let i = 0; i < data.length; i++) {
+	// 	let height = data[i].height
+	// 	let weight = data[i].weight
+	// 	let newArr = [height, weight]
+	// 	axisData.push(newArr)
+	// }
+	const axisData = data.map(({ height, weight }) => [height, weight]);
+	console.log(axisData);
+
+	let option = {
+		xAxis: {
+			type: 'value',
+			scale: true, // 摆脱以0为起点
+		},
+		yAxis: {
+			type: 'value',
+			scale: true, // 摆脱以0为起点
+		},
+		series: [
+			{
+				// type: 'scatter', // 散点图，x，y轴的type都是value
+				type: 'effectScatter', // 指明图表为带涟漪动画的散点图
+				showEffectOn: 'emphasis', // 出现涟漪动画的时机 渲染完成：render 鼠标滑过：emphasis
+				rippleEffect: {
+					scale: 5 // 涟漪动画时, 散点的缩放比例
+				},
+				data: axisData,
+				symbolSize: function (arg) { // 控制散点的大小
+					// console.log(arg)
+					var height = arg[0] / 100
+					var weight = arg[1]
+					// bmi = 体重kg / (身高m*身高m)   大于28,就代表肥胖
+					var bmi = weight / (height * height)
+					if (bmi > 28) {
+						return 20
+					}
+					return 5
+				},
+				itemStyle: { // 控制散点的样式
+					color: function (arg) {
+						// console.log(arg)
+						var height = arg.data[0] / 100
+						var weight = arg.data[1]
+						// bmi = 体重kg / (身高m*身高m)   大于28,就代表肥胖
+						var bmi = weight / (height * height)
+						if (bmi > 28) {
+							return 'red'
+						}
+						return 'green'
+					}
+				}
+			}
+		]
+	}
+
+	mcharts.setOption(option)
+</script>
+
+</html>
