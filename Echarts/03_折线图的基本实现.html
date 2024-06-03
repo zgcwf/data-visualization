@@ -90,6 +90,9 @@
 					color: 'black',
 					type: 'dashed', // dotted solid dashed
 				},
+				itemStyle: {
+					opacity: 0 // 去掉折线拐点
+				},
 				// 填充
 				areaStyle: {
 					color: 'pink'
@@ -107,6 +110,11 @@
 							name: "平均值",
 						},
 					],
+				},
+				// 线条样式
+				lineStyle: {
+					color: 'black',
+					width: 0 // 去掉折线线条
 				},
 				type: 'line',
 				smooth: true,
