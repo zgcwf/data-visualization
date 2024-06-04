@@ -1,0 +1,81 @@
+<!-- 如果有地图不适合这种方式，有问题 -->
+<template>
+  <div id="app">
+    <div class="container" :style="containerStyle">
+      <div class="main-wrap">
+        <!-- 这里是主要内容 -->
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  import { getScale, width, height } from './utils/getScale';
+
+  export default {
+    data() {
+      return {
+        width,
+        height,
+        scale: getScale(), // 初始化时获取比例
+        timer: null // 防抖计时器
+      };
+    },
+    computed: {
+      containerStyle() {
+        return {
+          transform: `scale(${this.scale}, ${this.scale}) translateX(-50%)`,
+          width: `${this.width}px`,
+          height: `${this.height}px`
+        };
+      }
+    },
+    methods: {
+      // 设置缩放比例
+      setScale() {
+        if (this.timer) {
+          clearTimeout(this.timer);
+        }
+        this.timer = setTimeout(() => {
+          this.scale = getScale();
+        }, 500);
+      }
+    },
+    mounted() {
+      this.setScale(); // 初始调用
+      window.addEventListener('resize', this.setScale);
+    },
+    destroyed() {
+      window.removeEventListener('resize', this.setScale);
+    }
+  }
+</script>
+
+<style scoped>
+  html,
+  body,
+  #app {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  #app {
+    position: relative;
+
+    .container {
+      position: absolute;
+      left: 50%;
+      transform-origin: 0 0;
+      overflow: hidden;
+      transition: all 0.3s linear;
+
+      .main-wrap {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+</style>
